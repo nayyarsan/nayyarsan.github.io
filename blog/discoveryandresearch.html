@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finding the Best AI Repos Before Everyone Else — Shyam Jayachandran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <span class="nav__brand">nayyarsan</span>
+    <a class="nav__link" href="../index.html">~/projects</a>
+    <a class="nav__link" href="../blog.html">~/blog</a>
+    <a class="nav__link" href="../about.html">~/about</a>
+  </div>
+</nav>
+
+<article class="post">
+  <p class="post__breadcrumb">&gt; cd ~/blog/discoveryandresearch</p>
+  <h1 class="post__title">Finding the Best AI Repos Before Everyone Else</h1>
+  <p class="post__date">2026-03-17</p>
+
+  <div class="post__body">
+    <p>GitHub Trending has a timing problem. By the time a repository surfaces there, it already has thousands of stars and every AI newsletter has covered it. The interesting moment — when something new is genuinely useful but not yet famous — is gone. I wanted to find repos in that window, so I built a scraper that looks across nine sources and runs a filtering pipeline before anything goes into the digest.</p>
+
+    <h2>The Nine Sources</h2>
+    <p>Each source was chosen for a specific reason. GitHub Trending itself is included because it's still the highest-signal general list, even if it's crowded. Papers With Code surfaces repositories attached to new research, which catches implementations before the hype cycle starts. Hugging Face's trending models and spaces section finds ML-specific work that GitHub's trending algorithm often ignores. Reddit's r/MachineLearning and r/LocalLLaMA catch community recommendations that aren't attached to any formal publication. Hacker News "Show HN" posts surface developer-made tools with direct author context. Two AI-focused Discord servers (scraped via their public RSS bridges) catch things the Reddit crowd finds later. Finally, ArXiv's cs.AI and cs.LG new submissions catch bleeding-edge work before it has any implementation at all — useful for anticipating what tooling will be needed.</p>
+
+    <p>Together these cover different parts of the ecosystem: academic, community, commercial, hobbyist. No single source has all of it.</p>
+
+    <h2>The Filtering Pipeline</h2>
+    <p>Raw results from nine sources generate a lot of noise. The pipeline runs three filters in sequence. License check first: anything without an OSI-approved open source license is dropped immediately, because I'm looking for things I can actually use. Language filter next: I care about Python, TypeScript, and Rust for AI tooling — repos in other languages need a specific reason to stay in. Relevance scoring last: a short LLM call rates each repo's README and description against a rubric focused on agent architectures, inference tooling, developer workflow improvements, and novel applications of foundation models.</p>
+
+    <p>What survives is usually 8 to 12 repos per week out of 60 to 90 candidates. That's the right compression ratio — enough to be curated, enough to not miss important things.</p>
+
+    <h2>The Repo Spotlight Format</h2>
+    <p>Each surviving repo becomes a Repo Spotlight entry: name and link, one-line description in plain English (not the repo's own tagline, which is usually marketing), why it matters right now, and what I'd use it for. The "why now" framing is the important part. A tool can be technically interesting but practically irrelevant to current infrastructure. Being specific about timing makes the spotlight more useful than a generic "cool project" summary.</p>
+
+    <h2>Feeding the Newsletter Pipeline</h2>
+    <p>The Repo Spotlight output drops directly into the mynewsletters pipeline. The scraper and filter run on Fridays; the newsletter pipeline picks it up Sunday morning. The handoff is a simple JSON file written to a shared path. No API, no message queue — the two scripts just agree on a file location.</p>
+
+    <h2>The Biggest Surprise</h2>
+    <p>The repos that turn out to be most useful often have almost no stars when I first find them. Under a hundred is common; under twenty is not rare. The best discoveries have come from the ArXiv and Discord sources — places where the author is present in the conversation before the wider community has noticed. By the time something hits 2,000 stars, the interesting early-adopter window is closed. Finding things at 15 stars and watching them grow is, unexpectedly, one of the more satisfying parts of running this pipeline.</p>
+  </div>
+
+  <div class="post__tags">
+    <span class="tag">discoveryandresearch</span>
+    <span class="tag">Python</span>
+    <span class="tag">scraping</span>
+    <span class="tag">AI</span>
+  </div>
+
+  <p class="post__back"><a href="../blog.html">← back to blog</a></p>
+</article>
+
+<script src="../nav.js"></script>
+</body>
+</html>

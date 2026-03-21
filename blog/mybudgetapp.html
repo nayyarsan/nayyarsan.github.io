@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cross-Platform Finance with Flutter + Firebase — Shyam Jayachandran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <span class="nav__brand">nayyarsan</span>
+    <a class="nav__link" href="../index.html">~/projects</a>
+    <a class="nav__link" href="../blog.html">~/blog</a>
+    <a class="nav__link" href="../about.html">~/about</a>
+  </div>
+</nav>
+
+<article class="post">
+  <p class="post__breadcrumb">&gt; cd ~/blog/mybudgetapp</p>
+  <h1 class="post__title">Cross-Platform Finance with Flutter + Firebase</h1>
+  <p class="post__date">2026-03-16</p>
+
+  <div class="post__body">
+    <p>I've tried every finance app category: commercial apps with subscription fees, spreadsheets that I maintain for two weeks and then abandon, bank-provided tools that only see one account. None of them stuck. The commercial apps know too much about me and cost money; the spreadsheets require too much discipline. I wanted something simple enough to actually use and personal enough to trust, so I built it.</p>
+
+    <h2>Why Flutter</h2>
+    <p>A finance app you only check on your phone is a finance app you stop using. I wanted Android for daily tracking, Windows for the monthly review where I actually think through the numbers, and a web version for quick checks when I'm on someone else's computer. Flutter gives you all three from one codebase in Dart. That's the pitch, and for this project it mostly delivered.</p>
+
+    <p>I was skeptical about Flutter for desktop — the reputation was that it worked but felt unfinished. In practice, Windows support is more mature than its reputation suggests. The widget system renders correctly, keyboard navigation works, and the window management is solid. There are edge cases, but I didn't hit anything that blocked me.</p>
+
+    <h2>Data Model</h2>
+    <p>I kept the model deliberately small: accounts, transactions, transfers between accounts, and goals. That's it. No categories with forty sub-categories, no tagging taxonomy, no investment portfolio integration. The decision to keep it simple was the most important design decision I made. Every finance app I've abandoned had become too complex to maintain. Simple enough to actually use is a feature.</p>
+
+    <p>Accounts have a type (checking, savings, credit, cash) and a running balance. Transactions belong to an account and have a date, amount, and a short note. Transfers move money between accounts without double-counting. Goals are just a target amount attached to a savings account with a deadline. The whole model fits in five Firestore collections.</p>
+
+    <h2>Firebase Backend</h2>
+    <p>Firestore gives me real-time sync across devices with essentially no server code. Android, Windows, and web all read from the same collections. Firebase Auth handles login — I'm the only user, so the implementation is trivial, but having auth means the data isn't publicly readable. No server to manage, no deployment pipeline, no on-call rotation. For a personal app with one user, this is the correct infrastructure choice.</p>
+
+    <h2>What the Web Version Is Actually For</h2>
+    <p>I expected the web version to be a fallback. It turned out to be the one I open most often on weekday mornings — a quick dashboard check to see where the month is tracking before I start work. The full layout renders well in a browser tab. I didn't need to build a separate dashboard; the same Flutter app in a browser window serves the purpose.</p>
+
+    <h2>The Widget System Surprise</h2>
+    <p>Flutter's widget composition model initially feels verbose. Everything is a widget. Padding is a widget. Alignment is a widget. After three weeks with it, I stopped noticing the verbosity and started noticing the precision. Every visual property is explicit and traceable. When something looks wrong, you know exactly which widget is responsible. Coming from CSS, where layout bugs can be genuinely mysterious, that explicitness is a relief I didn't expect to appreciate as much as I do.</p>
+  </div>
+
+  <div class="post__tags">
+    <span class="tag">MyBudgetApp</span>
+    <span class="tag">Dart</span>
+    <span class="tag">Flutter</span>
+    <span class="tag">Firebase</span>
+  </div>
+
+  <p class="post__back"><a href="../blog.html">← back to blog</a></p>
+</article>
+
+<script src="../nav.js"></script>
+</body>
+</html>

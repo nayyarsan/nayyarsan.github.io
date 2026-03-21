@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automating My Weekly AI Reading — Shyam Jayachandran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <span class="nav__brand">nayyarsan</span>
+    <a class="nav__link" href="../index.html">~/projects</a>
+    <a class="nav__link" href="../blog.html">~/blog</a>
+    <a class="nav__link" href="../about.html">~/about</a>
+  </div>
+</nav>
+
+<article class="post">
+  <p class="post__breadcrumb">&gt; cd ~/blog/mynewsletters</p>
+  <h1 class="post__title">Automating My Weekly AI Reading</h1>
+  <p class="post__date">2026-03-18</p>
+
+  <div class="post__body">
+    <p>At some point I had thirty-plus AI-related sources open in browser tabs every Sunday morning. Papers, newsletters, GitHub repos, Substack posts, Discord threads. The signal-to-noise ratio was terrible. Important things were getting buried under hot takes, and I was spending two hours just deciding what was worth reading. That's not sustainable, so I automated it.</p>
+
+    <h2>The Architecture</h2>
+    <p>The pipeline has three stages. First, 35 RSS feeds and API sources are fetched and normalised into a common schema — title, URL, source name, published date, and a short excerpt. Second, GPT-4o-mini scores each item on a 1-10 relevance scale based on a prompt that describes what I care about: applied AI engineering, agent architectures, tooling, and anything intersecting enterprise software. Third, the top-ranked items — usually 15 to 20 — are passed to Claude for summarisation. Claude produces a digest section for each item: one sentence on what it is, two or three sentences on why it matters, and a direct link.</p>
+
+    <p>The finished digest lands in a Telegram message every Sunday morning via the Bot API. I open it with coffee. It takes about eight minutes to read instead of two hours to curate.</p>
+
+    <h2>Why Two Models</h2>
+    <p>The GPT-4o-mini and Claude split wasn't the original plan — I started with Claude doing everything. But bulk relevance scoring across 35 sources, even with short excerpts, adds up quickly in tokens and cost. GPT-4o-mini is fast and cheap for this exact task: binary-ish judgement on short text. It doesn't need nuance; it needs throughput.</p>
+
+    <p>Claude handles the summarisation because that's where nuance actually matters. A good summary of a new paper isn't just "this paper is about X." It's "this paper is about X, which matters because of Y, and the interesting wrinkle is Z." That kind of synthesis is where Claude earns its token cost. Separating the jobs by model reduced my weekly API spend by about 60% compared to using Claude for everything.</p>
+
+    <h2>GitHub Actions as Orchestrator</h2>
+    <p>The whole pipeline runs on a GitHub Actions cron schedule — Sunday mornings at 7am Pacific. There's no server, no database, no infrastructure to babysit. The Action checks out the repo, runs the Python script with secrets injected as environment variables, and exits. If it fails, I get an email from GitHub. Total infrastructure cost: zero dollars, which is my favourite kind.</p>
+
+    <p>Failure modes are mostly rate limits and source outages. A few RSS feeds go down occasionally; I wrapped the fetch step in per-source try/except so one bad source doesn't abort the whole run. Rate limits from the APIs are handled with exponential backoff. In six months of running, I've had three failed digests — acceptable.</p>
+
+    <h2>What You Learn</h2>
+    <p>Reading your own automated digest is strange at first. You're seeing your own interests reflected back through a filter you built. After a few weeks I started noticing what the pipeline consistently missed — things I'd find valuable but that didn't match my relevance prompt. That mismatch is itself useful information. I've updated the scoring prompt four times based on what I wished had surfaced. The pipeline is a mirror, and it shows you what your assumptions actually are.</p>
+  </div>
+
+  <div class="post__tags">
+    <span class="tag">mynewsletters</span>
+    <span class="tag">Python</span>
+    <span class="tag">GitHub Actions</span>
+    <span class="tag">automation</span>
+  </div>
+
+  <p class="post__back"><a href="../blog.html">← back to blog</a></p>
+</article>
+
+<script src="../nav.js"></script>
+</body>
+</html>

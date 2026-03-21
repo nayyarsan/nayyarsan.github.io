@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extending VS Code with the Copilot SDK — Shyam Jayachandran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <span class="nav__brand">nayyarsan</span>
+    <a class="nav__link" href="../index.html">~/projects</a>
+    <a class="nav__link" href="../blog.html">~/blog</a>
+    <a class="nav__link" href="../about.html">~/about</a>
+  </div>
+</nav>
+
+<article class="post">
+  <p class="post__breadcrumb">&gt; cd ~/blog/business-requirements-agent</p>
+  <h1 class="post__title">Extending VS Code with the Copilot SDK</h1>
+  <p class="post__date">2026-03-19</p>
+
+  <div class="post__body">
+    <p>Business Requirements Documents are one of those things everyone agrees matter and nobody enjoys writing. At Infosys I've sat through enough BRD review cycles to know the real problem isn't the format — it's the blank page. You have a codebase, you have stakeholder notes, you have Jira tickets, and you need to synthesise all of that into a structured document that non-technical people can approve. That synthesis step is exactly what an AI agent should be doing. So I built one inside VS Code using the Copilot extension SDK.</p>
+
+    <h2>What the SDK Gives You</h2>
+    <p>The Copilot SDK lets you register custom agent skills — essentially named capabilities that Copilot Chat can route to when the user invokes them. Your skill gets access to the workspace context: open files, the active editor content, even symbol information from the language server. That context is the valuable part. Instead of asking a generic LLM about your project, your skill can inspect the actual code and configuration sitting in the workspace before it generates anything.</p>
+
+    <p>The API surface is TypeScript-first, which suited me fine. You register a skill handler, declare what context you need, and return a structured response that Copilot renders in the chat panel. The documentation is terse but the examples are honest about what the SDK can and can't do.</p>
+
+    <h2>Architecture</h2>
+    <p>The agent is a single skill registered under the name <code>brd</code>. When invoked, it reads every open file in the workspace, strips comments and boilerplate down to the semantically meaningful parts, and builds a condensed project summary. That summary is the context for a structured generation prompt that outputs a BRD in a fixed schema: executive summary, functional requirements, non-functional requirements, assumptions, out-of-scope items, and open questions.</p>
+
+    <p>I kept it as one skill rather than a pipeline of smaller skills because the SDK's latency budget per skill invocation is tight. Chaining skills introduced enough overhead to make the interaction feel sluggish. One call, one well-structured prompt, one clean output.</p>
+
+    <h2>The Hard Parts</h2>
+    <p>Prompting for structured output that matches stakeholder expectations was the slowest part of the project. "Structured" in my head meant clean JSON. "Structured" to a business analyst means bullet points with specific hierarchy, passive voice in certain sections, active voice in others, and a particular way of writing acceptance criteria. Getting the prompt to consistently produce that required about fifteen iterations and a small evaluation set of real BRDs I'd written manually. I compared outputs by hand until the generated versions were indistinguishable from my drafts.</p>
+
+    <p>The other lesson: the SDK is opinionated about how context flows. I spent two days trying to pull in external documentation via a sidecar HTTP call inside the skill handler. It worked, but the SDK's streaming model made error handling messy. Eventually I dropped the external fetch and stuck to workspace context only. Working with the SDK's patterns instead of fighting them made the code half the size and twice as reliable.</p>
+
+    <h2>Result</h2>
+    <p>BRD generation went from an afternoon to about four minutes. The output needs editing — it always does — but it's editing rather than drafting. For a solo developer working across multiple enterprise projects, that's a meaningful shift. The agent is on GitHub if you want to wire it into your own VS Code setup.</p>
+  </div>
+
+  <div class="post__tags">
+    <span class="tag">business-requirements-agent</span>
+    <span class="tag">TypeScript</span>
+    <span class="tag">VS Code</span>
+    <span class="tag">Copilot SDK</span>
+  </div>
+
+  <p class="post__back"><a href="../blog.html">← back to blog</a></p>
+</article>
+
+<script src="../nav.js"></script>
+</body>
+</html>

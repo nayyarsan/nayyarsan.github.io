@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building a PWA for My Daughter — Shyam Jayachandran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <span class="nav__brand">nayyarsan</span>
+    <a class="nav__link" href="../index.html">~/projects</a>
+    <a class="nav__link" href="../blog.html">~/blog</a>
+    <a class="nav__link" href="../about.html">~/about</a>
+  </div>
+</nav>
+
+<article class="post">
+  <p class="post__breadcrumb">&gt; cd ~/blog/sight-word-quest</p>
+  <h1 class="post__title">Building a PWA for My Daughter</h1>
+  <p class="post__date">2026-03-15</p>
+
+  <div class="post__body">
+    <p>My daughter came home from kindergarten with a list of Dolch sight words she needed to learn before the end of term. The list had 220 words on it. "The", "and", "a", "to" — words that don't follow phonics rules, that kids just have to memorise through repetition. Her teacher recommended flashcard apps. I looked at three of them and they were either ad-laden, required a subscription, or had UI so cluttered that a six-year-old couldn't navigate them independently. I built one instead.</p>
+
+    <h2>Why a PWA</h2>
+    <p>The requirements were specific: it had to work offline because our tablet's connectivity is unreliable, it had to be installable on her Android tablet without going through an app store, and it had to run in a browser so I could also open it on my laptop to add word lists. A Progressive Web App hits all three. Service worker for offline, Web App Manifest for installation, standard HTML and JavaScript that works anywhere with a browser. No build toolchain, no framework — just a <code>manifest.json</code>, a <code>sw.js</code>, and a few hundred lines of vanilla JavaScript.</p>
+
+    <p>The installation experience on Android is genuinely good now. Chrome prompts "Add to Home Screen" after a couple of visits. From her perspective it's just an app with an icon. She has no idea it's a website.</p>
+
+    <h2>Gamification for a Six-Year-Old</h2>
+    <p>I spent more time on this than any other part of the project. The research on what motivates young children to repeat tasks is pretty consistent: immediate positive feedback, visible accumulation, and a sense of progression that isn't tied to failure. So: a star for every correct answer (shown immediately, with animation), a streak counter that resets only at the start of a new day rather than on a wrong answer, and word "levels" based on how many times you've answered correctly — not on how few times you've been wrong. Getting something wrong just means you'll see the word again sooner. There's no penalty screen, no red X, no score comparison.</p>
+
+    <p>I deliberately avoided a points leaderboard or competitive element. She's six. The goal is to make repetition feel rewarding, not to make her feel ranked.</p>
+
+    <h2>Parent Dashboard</h2>
+    <p>Progress is stored in <code>localStorage</code> keyed by word. The parent dashboard reads that store and shows which words have been seen, which are mastered (five correct answers without a miss in the last session), and which haven't been touched yet. I can pull it up on my laptop, see where she is in the list, and manually mark words if she's demonstrated them in reading but not in the app. It's deliberately simple — no graphs, no trend lines — because I don't need analytics, I need a quick answer to "how are we doing?"</p>
+
+    <h2>Building for Someone You Love</h2>
+    <p>I've shipped production software to thousands of users with less anxiety than I felt deploying this to one six-year-old. When you care deeply about the person using something you built, every rough edge feels unacceptable. The tap targets weren't big enough on the first version. The font wasn't readable enough at arm's length on a tablet. The loading animation ran too long and she'd look away. I fixed all of it because watching her use it and frown was unbearable in a way that a bug report never is.</p>
+
+    <p>Her review, delivered after about two weeks: "It's pretty good. The stars are nice. Can you make them bigger?" Stars are now bigger. Shipping.</p>
+  </div>
+
+  <div class="post__tags">
+    <span class="tag">sight-word-quest</span>
+    <span class="tag">JavaScript</span>
+    <span class="tag">PWA</span>
+  </div>
+
+  <p class="post__back"><a href="../blog.html">← back to blog</a></p>
+</article>
+
+<script src="../nav.js"></script>
+</body>
+</html>

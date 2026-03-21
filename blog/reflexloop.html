@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building Agents That Improve Themselves — Shyam Jayachandran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <span class="nav__brand">nayyarsan</span>
+    <a class="nav__link" href="../index.html">~/projects</a>
+    <a class="nav__link" href="../blog.html">~/blog</a>
+    <a class="nav__link" href="../about.html">~/about</a>
+  </div>
+</nav>
+
+<article class="post">
+  <p class="post__breadcrumb">&gt; cd ~/blog/reflexloop</p>
+  <h1 class="post__title">Building Agents That Improve Themselves</h1>
+  <p class="post__date">2026-03-20</p>
+
+  <div class="post__body">
+    <p>Every AI assistant I've used has the same fundamental problem: it doesn't remember you. Start a new session and you're a stranger again. You re-explain your stack, your preferences, your project context — over and over. The assistant gives competent, generic advice, but it never gets sharper with you specifically. That friction wore on me enough that I decided to build something about it.</p>
+
+    <h2>The Idea</h2>
+    <p>What if the agent got a little better after every session? Not via fine-tuning — that's expensive and opaque — but via a simple critique loop. After each working session, a second agent reviews the conversation transcript: what suggestions landed well, which ones were ignored, where the user had to correct course. That review produces a short evidence note that gets folded into the system prompt for the next session. The agent doesn't magically "learn" — it just carries forward a growing, curated description of who it's working with.</p>
+
+    <p>I called the project ReflexLoop. The name felt right. A reflex is fast and automatic; a loop implies iteration. The goal is automatic improvement that compounds over time.</p>
+
+    <h2>The Loop</h2>
+    <p>The mechanics are straightforward. Session ends, transcript is serialised to a JSON file. The critique agent — a separate call with a different system prompt — reads the transcript and answers a small set of structured questions: What did the user seem to want that wasn't delivered? What recommendations did they accept without pushback? What domain details did they provide that should be remembered? The answers become a compact evidence block. On the next session startup, the evidence blocks from the last N sessions are merged, de-duplicated, and injected into the system prompt before the user says a word.</p>
+
+    <p>The implementation in Python is about 400 lines including the CLI wrapper. The critique prompt took the most iteration — I rewrote it six times before it stopped hallucinating "insights" that weren't actually in the transcript.</p>
+
+    <h2>Key Challenges</h2>
+    <p>Distinguishing signal from noise was harder than I expected. Early versions of the critique agent flagged everything. After a session where I asked about database indexing, it would add "user is interested in database performance" — technically true but useless at the resolution of a system prompt. The fix was adding a utility filter: only record something if it would change the agent's response in a future session. That single constraint cut noise by about 70%.</p>
+
+    <p>Prompt bloat is the other enemy. Each critique adds text. After twenty sessions of unchecked accumulation, the system prompt was 3,000 tokens of increasingly contradictory context. I added a consolidation step that runs every five sessions — another agent pass that merges overlapping evidence and drops anything that hasn't been referenced in recent sessions. It's a garbage collector for context.</p>
+
+    <h2>What Changed</h2>
+    <p>After roughly ten sessions on a single project, the difference was noticeable. The agent stopped suggesting abstractions I'd already dismissed. It knew which libraries I was using without me repeating them. When I asked about error handling, it referenced the specific patterns I'd adopted earlier in the project. Sessions started feeling less like querying a search engine and more like picking up a conversation.</p>
+
+    <p>I'm genuinely uncertain how many iterations before this hits diminishing returns. My intuition says somewhere between fifteen and thirty sessions for a well-scoped project. Beyond that, the signal-to-noise problem might reassert itself even with consolidation. That's the open question I'm still running down. If you've tackled self-improving prompts in a different way, I'd be curious what you found.</p>
+  </div>
+
+  <div class="post__tags">
+    <span class="tag">reflexloop</span>
+    <span class="tag">Python</span>
+    <span class="tag">AI agents</span>
+  </div>
+
+  <p class="post__back"><a href="../blog.html">← back to blog</a></p>
+</article>
+
+<script src="../nav.js"></script>
+</body>
+</html>
