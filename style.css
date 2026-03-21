@@ -1,14 +1,17 @@
 /* ── Tokens ─────────────────────────────────────────── */
 :root {
-  --bg:        #0d0d0d;
-  --surface:   #111111;
-  --text:      #e0e0e0;
-  --muted:     #555555;
-  --accent:    #00ff88;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-body: 'Inter', sans-serif;
-  --max-w:     800px;
-  --radius:    4px;
+  --bg:           #0d0d0d;
+  --surface:      #111111;
+  --surface-card: #131313;
+  --surface-hover:#1a1919;
+  --text:         #e0e0e0;
+  --muted:        #555555;
+  --accent:       #00ff88;
+  --cyan:         #7ee6ff;
+  --font-mono:    'JetBrains Mono', monospace;
+  --font-body:    'Inter', sans-serif;
+  --max-w:        800px;
+  --radius:       4px;
 }
 
 /* ── Reset ───────────────────────────────────────────── */
@@ -31,8 +34,9 @@ a:hover { text-decoration: underline; }
   position: fixed;
   top: 0; left: 0; right: 0;
   height: 56px;
-  background: var(--surface);
-  border-bottom: 1px solid #222;
+  background: rgba(13,13,13,0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -135,18 +139,19 @@ a:hover { text-decoration: underline; }
 }
 
 .card {
-  background: var(--surface);
-  border: 1px solid #222;
+  background: var(--surface-card);
   border-radius: var(--radius);
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  transition: border-left 0.15s;
-  border-left: 3px solid transparent;
+  transition: background 0.15s, box-shadow 0.15s;
 }
 
-.card:hover { border-left-color: var(--accent); }
+.card:hover {
+  background: var(--surface-hover);
+  box-shadow: 0 20px 50px rgba(0,255,136,0.05);
+}
 
 .card__name {
   font-family: var(--font-mono);
@@ -160,6 +165,15 @@ a:hover { text-decoration: underline; }
   color: var(--muted);
   flex: 1;
 }
+
+.card__status {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+}
+
+.card__status--deployed { color: var(--cyan); }
+.card__status--private  { color: var(--muted); }
 
 .card__footer {
   display: flex;

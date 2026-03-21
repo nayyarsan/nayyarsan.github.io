@@ -1,0 +1,50 @@
+# Shyam Jayachandran — nayyarsan.com
+
+> AI & Enterprise Developer based in Los Angeles. Building AI-powered tools and developer experiences.
+
+## About
+
+Shyam Jayachandran (nayyarsan) is an AI and enterprise software developer. He builds developer tooling, autonomous AI agents, and personal productivity systems. His work spans VS Code extensions, self-hosted AI infrastructure, multi-source data pipelines, and cross-platform mobile/web apps.
+
+- Personal site: https://nayyarsan.com
+- GitHub: https://github.com/nayyarsan
+- Email: available on the about page
+
+## Projects
+
+### Public
+
+- **reflexloop** — Self-refining AI agents for software development. Agents critique every session and improve their own prompts autonomously. [Python] https://github.com/nayyarsan/reflexloop
+
+- **business-requirements-agent** — VS Code extension that generates Business Requirements Documents using the GitHub Copilot SDK. [TypeScript] https://github.com/nayyarsan/business-requirements-agent
+
+- **mynewsletters** — Automated weekly AI digest. Fetches 35+ sources, ranks with GPT-4o-mini, summarises with Claude, delivers to Telegram. [Python] https://github.com/nayyarsan/mynewsletters
+
+- **discoveryandresearch** — Weekly AI repo discovery engine. Scrapes 9 sources, filters by license/language/relevance, publishes a Repo Spotlight. [Python] https://github.com/nayyarsan/discoveryandresearch
+
+- **MyBudgetApp** — Flutter + Firebase personal finance app for Android, Windows, and web. Track accounts, transfers, and goals. [Dart] https://github.com/nayyarsan/MyBudgetApp
+
+- **sight-word-quest** — PWA game to help children learn sight words with gamified practice and a parent dashboard. [JavaScript] https://github.com/nayyarsan/sight-word-quest
+
+### Private
+
+- **md-export-pro** — VS Code extension for markdown preview and export to DOCX/HTML. Supports Mermaid diagrams and light/dark themes. [TypeScript]
+
+- **jarvis-personal-agent** — Airgapped personal AI running Ollama on a Raspberry Pi 5. Context never leaves the local network. [Python]
+
+## Blog Posts
+
+- [Building reflexloop: When AI Agents Critique Themselves](/blog/reflexloop.html)
+- [Shipping a VS Code Extension with the GitHub Copilot SDK](/blog/business-requirements-agent.html)
+- [Airgapped AI: Running Ollama on a Raspberry Pi 5](/blog/jarvis.html)
+- [Automating My Weekly AI Newsletter with GPT-4o-mini and Claude](/blog/mynewsletters.html)
+- [Building md-export-pro: Markdown to DOCX in VS Code](/blog/md-export-pro.html)
+- [Automating AI Repo Discovery Across 9 Sources](/blog/discoveryandresearch.html)
+- [Building a Cross-Platform Budget App with Flutter and Firebase](/blog/mybudgetapp.html)
+- [Building a Sight Word Game for My Daughter](/blog/sight-word-quest.html)
+
+## Site Pages
+
+- [Projects / Home](/) — Project portfolio with all 8 projects
+- [Blog](/blog.html) — Technical writing on AI, developer tools, and side projects
+- [About](/about.html) — Background, skills, and contact information
