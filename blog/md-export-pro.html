@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Markdown the Way You Actually Want It — Shyam Jayachandran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <span class="nav__brand">nayyarsan</span>
+    <a class="nav__link" href="../index.html">~/projects</a>
+    <a class="nav__link" href="../blog.html">~/blog</a>
+    <a class="nav__link" href="../about.html">~/about</a>
+  </div>
+</nav>
+
+<article class="post">
+  <p class="post__breadcrumb">&gt; cd ~/blog/md-export-pro</p>
+  <h1 class="post__title">Markdown the Way You Actually Want It</h1>
+  <p class="post__date">2026-03-22</p>
+
+  <div class="post__body">
+    <p>
+      VS Code's built-in markdown preview is genuinely good for what it is. You write, you split the
+      pane, you see a reasonable rendering of your document. That's fine — until you need to actually
+      do something with the document. Export it. Share it. Hand it to someone who doesn't live in a
+      terminal. The moment you try to get your markdown out of VS Code in any format that a normal person
+      can open, you hit a wall.
+    </p>
+
+    <p>
+      The specific pain I kept running into: I write a lot of technical documentation in markdown. It's
+      the format that makes sense to me — fast, portable, version-controllable, easy to think in. But
+      when I need to share a design document or a requirements spec with non-developer stakeholders,
+      "here's a .md file" is not a real answer. They want a Word document. They want a DOCX they can
+      open, comment on, maybe print. Copying the text into Word and reformatting it manually is exactly
+      as tedious as it sounds, and it breaks every time you update the source.
+    </p>
+
+    <p>
+      Mermaid support was the feature that pushed me from "this would be nice" to "I'm going to build this."
+      I use Mermaid diagrams constantly — flowcharts, sequence diagrams, architecture sketches embedded
+      directly in my markdown files. VS Code renders them in preview, which is great. But every export
+      solution I tried would just drop them entirely or leave broken image placeholders. If the point of
+      embedding a diagram in your documentation is that the diagram is part of the documentation, losing
+      it on export defeats the whole purpose. I wanted Mermaid diagrams to render correctly in the exported
+      output, not silently disappear.
+    </p>
+
+    <p>
+      Theme handling matters more than you'd think. My editing environment is dark — everything is dark.
+      But the document I'm exporting is going to be read by someone in a bright Word window or printed on
+      white paper. A dark-themed export looks jarring and often illegible in that context. I wanted control
+      over the export theme independently of the editor theme: write in dark, export in light, and have
+      the output look intentional rather than like a screenshot of my screen.
+    </p>
+
+    <p>
+      The DOCX export turned out to be the hardest part of the whole thing. Word's internal XML format —
+      the thing that actually makes a .docx file a .docx file — is a maze. Faithfully preserving markdown
+      formatting across headings, inline code, bold, italic, and blockquotes requires mapping everything
+      to Word's own style system, and the mapping is never one-to-one. Tables are where this gets
+      especially difficult. Markdown tables are simple grids. Word tables are objects with their own layout
+      engine, border system, and cell formatting rules. Getting them to come through cleanly, without
+      losing alignment or collapsing cells, required a lot of iteration.
+    </p>
+
+    <p>
+      HTML export is the simpler path. Generating clean HTML from markdown is a well-understood problem,
+      and the tooling for it is mature. The challenge there is different: styling consistency. If you're
+      sending an HTML export to someone, it needs to look like something you'd send to someone — not like
+      an unstyled browser default. Making sure the styles are inlined or bundled so the document renders
+      correctly without depending on external resources took more thought than the conversion itself.
+    </p>
+
+    <p>
+      The extension is actively in development. The export pipeline is working — I'm using it myself on
+      real documents — but there's polish work left before I'd want to call it done. The Mermaid rendering
+      and DOCX output are both functional. The UI inside VS Code is minimal right now, more wiring than
+      design. It's not public yet, but it's getting there. When it is, I want it to be the thing I wished
+      existed two years ago: markdown export that actually works, inside the editor you're already in.
+    </p>
+  </div>
+
+  <div class="post__tags">
+    <span class="tag">md-export-pro</span>
+    <span class="tag">TypeScript</span>
+    <span class="tag">VS Code</span>
+    <span class="tag">markdown</span>
+  </div>
+
+  <p class="post__back"><a href="../blog.html">← back to blog</a></p>
+</article>
+
+<script src="../nav.js"></script>
+</body>
+</html>

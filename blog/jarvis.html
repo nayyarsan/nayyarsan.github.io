@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Running a Private AI on a Raspberry Pi 5 — Shyam Jayachandran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <span class="nav__brand">nayyarsan</span>
+    <a class="nav__link" href="../index.html">~/projects</a>
+    <a class="nav__link" href="../blog.html">~/blog</a>
+    <a class="nav__link" href="../about.html">~/about</a>
+  </div>
+</nav>
+
+<article class="post">
+  <p class="post__breadcrumb">&gt; cd ~/blog/jarvis</p>
+  <h1 class="post__title">Running a Private AI on a Raspberry Pi 5</h1>
+  <p class="post__date">2026-03-21</p>
+
+  <div class="post__body">
+    <p>
+      Every time I type a question into a cloud AI, I'm aware of something nagging at the back of my mind:
+      that query is leaving my device. It might be logged. It might be used as training data. It might live on
+      a server somewhere indefinitely. For most throwaway questions — "what's the capital of Kyrgyzstan,"
+      "remind me how to reverse a linked list" — that tradeoff is completely fine. But I use AI differently
+      than that. I talk to it about my calendar, my work ideas, my personal goals, half-formed thoughts I
+      haven't told anyone yet. That's when the tradeoff stops feeling fine.
+    </p>
+
+    <p>
+      The goal I set for myself was simple to state and harder to actually deliver: a personal AI assistant
+      where the context never leaves the house. No API calls to OpenAI, no Anthropic, no Google. Everything
+      local, everything mine. I wanted to be able to ask it something genuinely private and know — not just
+      hope — that the answer stayed between me and the hardware sitting on my desk.
+    </p>
+
+    <p>
+      I landed on the Raspberry Pi 5 as the hardware. A few years ago this would have been a non-starter —
+      the Pi just didn't have the grunt for running language models at any usable speed. The Pi 5 changed
+      that calculus. It has real memory bandwidth, a significantly faster CPU than its predecessors, and it's
+      available for a one-time cost that you offset against cloud API spend within a few months of regular use.
+      There's also something philosophically satisfying about the whole setup fitting in one hand and drawing
+      less power than a light bulb.
+    </p>
+
+    <p>
+      For the runtime I went with Ollama. I looked at alternatives, but Ollama just removes friction so
+      effectively that it was hard to argue against. Model management is handled cleanly, it exposes a local
+      API that makes integration straightforward, and the configuration story is essentially non-existent —
+      you get it running and it gets out of your way. I've tried a handful of models at different parameter
+      sizes to find the right balance between capability and response time on the Pi's hardware.
+    </p>
+
+    <p>
+      The honest performance picture: it handles conversational tasks, summarization, brainstorming, and
+      drafting really well. Ask it to help me think through a problem, outline a document, or rewrite a rough
+      paragraph, and it performs at a level I find genuinely useful day-to-day. Where it falls short is on
+      tasks that require broad, up-to-date world knowledge or very deep multi-step reasoning — things where
+      the frontier cloud models are still clearly ahead. I knew this going in, so it hasn't been a disappointment
+      so much as a known boundary I work within.
+    </p>
+
+    <p>
+      The thing that actually surprised me was latency. I expected it to feel slow in a way that would be
+      constantly annoying. In practice, for conversational back-and-forth, the wait is more like a thoughtful
+      pause than a frustrating delay. You stop expecting instant responses — which, if anything, changes how
+      you interact with it. You ask more complete questions. You read the answer more carefully. It ends up
+      feeling less like querying a search engine and more like having a conversation.
+    </p>
+
+    <p>
+      Where I want to take this next: I'm planning to add a voice interface so I can talk to it hands-free
+      when I'm in the middle of something else. I also want to integrate it more deeply with home automation —
+      the idea of a truly local, voice-driven assistant that controls my environment without any of it touching
+      the internet is genuinely appealing. Jarvis, the name I gave it, feels a little more earned with each
+      capability I add.
+    </p>
+
+    <p>
+      Privacy-first AI isn't a compromise. It's just a different set of tradeoffs. For the use cases that
+      matter most to me, it's the right ones.
+    </p>
+  </div>
+
+  <div class="post__tags">
+    <span class="tag">jarvis</span>
+    <span class="tag">Python</span>
+    <span class="tag">Ollama</span>
+    <span class="tag">Raspberry Pi</span>
+    <span class="tag">privacy</span>
+  </div>
+
+  <p class="post__back"><a href="../blog.html">← back to blog</a></p>
+</article>
+
+<script src="../nav.js"></script>
+</body>
+</html>
