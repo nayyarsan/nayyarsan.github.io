@@ -1,0 +1,36 @@
+name: Repos Spotlight
+
+# Runs Monday 2am UTC — 4 hours after discoveryandresearch publishes spotlight.json
+# (discoveryandresearch runs Sunday 10pm UTC)
+on:
+  schedule:
+    - cron: '0 2 * * 1'
+  workflow_dispatch:       # Manual trigger for testing
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout site
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Generate repos spotlight post
+        run: python scripts/publish_repos_spotlight.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add blog/ blog.html
+          git diff --cached --quiet && echo "No changes to commit" || \
+            git commit -m "chore: repos spotlight $(date -u +%Y-%m-%d)" && \
+            git push

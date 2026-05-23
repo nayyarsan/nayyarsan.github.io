@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repos to Watch — Week of May 23, 2026 — Shyam Jayachandran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .repo-card {
+      border: 1px solid #222;
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      background: var(--surface-card);
+    }
+    .repo-card__name {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .repo-card__name:hover { text-decoration: underline; }
+    .repo-card__meta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin: 0.4rem 0 0.75rem;
+      flex-wrap: wrap;
+    }
+    .repo-card__stars {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .repo-card__desc { margin: 0.5rem 0 0.75rem; }
+    .repo-card__why {
+      border-left: 2px solid var(--accent);
+      padding-left: 0.75rem;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    .repo-card__action {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .repo-card__action a { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <span class="nav__brand">nayyarsan</span>
+    <a class="nav__link" href="../index.html">~/projects</a>
+    <a class="nav__link" href="../blog.html">~/blog</a>
+    <a class="nav__link" href="../about.html">~/about</a>
+  </div>
+</nav>
+
+<article class="post">
+  <p class="post__breadcrumb">&gt; cd ~/blog/repos-2026-05-23</p>
+  <h1 class="post__title">Repos to Watch — Week of May 23, 2026</h1>
+  <p class="post__date">2026-05-23</p>
+
+  <div class="post__body">
+    <p>Week of May 23, 2026. 3 repos surfaced by the discovery pipeline across GitHub Trending, Hacker News, Reddit, and Lobsters. All are Python. Filtered for AI/SDLC relevance, MIT or Apache-2.0 licensed, and not seen in a previous spotlight.</p>
+    <div class="repo-card">
+      <a class="repo-card__name" href="https://github.com/microsoft/promptflow" target="_blank" rel="noopener">microsoft/promptflow</a>
+      <div class="repo-card__meta">
+        <span class="tag" style="border-left:3px solid #3572A5;padding-left:6px">python</span>
+        <span class="repo-card__stars">★ 9,800</span>
+        <span style="color:var(--accent);font-family:var(--font-mono);font-size:0.8rem">+420 this week</span>
+      </div>
+      <p class="repo-card__desc">Build high-quality LLM apps — from prototyping, testing to production deployment and monitoring.</p>
+      <p class="repo-card__why">Ships a VS Code extension that visualises multi-step prompt chains as a DAG, with per-node latency and token cost breakdowns inline.</p>
+      <p class="repo-card__action"><strong>Why it matters for your stack:</strong> Directly targets the evaluation and testing stage of AI-first SDLC — the DAG visualiser makes it faster to spot which prompt node is causing latency or quality regressions.</p>
+    </div>
+    <div class="repo-card">
+      <a class="repo-card__name" href="https://github.com/BerriAI/litellm" target="_blank" rel="noopener">BerriAI/litellm</a>
+      <div class="repo-card__meta">
+        <span class="tag" style="border-left:3px solid #3572A5;padding-left:6px">python</span>
+        <span class="repo-card__stars">★ 14,200</span>
+        <span style="color:var(--accent);font-family:var(--font-mono);font-size:0.8rem">+680 this week</span>
+      </div>
+      <p class="repo-card__desc">Call 100+ LLMs using the OpenAI format. Use Bedrock, Azure, OpenAI, Cohere, Anthropic, Ollama, Sagemaker, HuggingFace, Replicate (100+ LLMs).</p>
+      <p class="repo-card__why">Added a new /router endpoint this week that supports fallback chains — if GPT-5 rate-limits, it falls through to Claude Sonnet automatically, with cost tracking per model.</p>
+      <p class="repo-card__action"><strong>Why it matters for your stack:</strong> Drop-in replacement for OpenAI SDK calls across your entire codebase — swap providers without changing application code, useful when rate limits hit in CI.</p>
+    </div>
+    <div class="repo-card">
+      <a class="repo-card__name" href="https://github.com/simonw/llm" target="_blank" rel="noopener">simonw/llm</a>
+      <div class="repo-card__meta">
+        <span class="tag" style="border-left:3px solid #3572A5;padding-left:6px">python</span>
+        <span class="repo-card__stars">★ 5,600</span>
+        <span style="color:var(--accent);font-family:var(--font-mono);font-size:0.8rem">+210 this week</span>
+      </div>
+      <p class="repo-card__desc">Access large language models from the command line.</p>
+      <p class="repo-card__why">New plugin system lets you pipe shell output directly into any model — `git diff | llm 'write a commit message'` works out of the box.</p>
+      <p class="repo-card__action"><strong>Why it matters for your stack:</strong> The git diff pipe pattern is practical for teams using AI-assisted commit messages in a pre-commit hook without a full IDE integration.</p>
+    </div>
+  </div>
+
+  <div class="post__tags">
+    <span class="tag">AI</span>
+    <span class="tag">Python</span>
+    <span class="tag">SDLC</span>
+    <span class="tag">ai-agents</span>
+    <span class="tag">cli</span>
+    <span class="tag">llm</span>
+    <span class="tag">openai</span>
+    <span class="tag">repos</span>
+  </div>
+
+  <p class="post__back"><a href="../blog.html">← back to blog</a></p>
+</article>
+
+<script src="../nav.js"></script>
+</body>
+</html>
