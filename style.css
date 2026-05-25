@@ -181,7 +181,7 @@ a:hover { text-decoration: underline; }
   letter-spacing: 0.05em;
 }
 
-.card__status--deployed { color: var(--cyan); }
+.card__status--deployed { color: var(--accent); }
 .card__status--private  { color: var(--muted); }
 
 .card__footer {
