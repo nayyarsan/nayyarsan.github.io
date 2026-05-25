@@ -1,17 +1,26 @@
 /* ── Tokens ─────────────────────────────────────────── */
 :root {
-  --bg:           #0d0d0d;
-  --surface:      #111111;
-  --surface-card: #131313;
-  --surface-hover:#1a1919;
-  --text:         #e0e0e0;
-  --muted:        #555555;
-  --accent:       #00ff88;
-  --cyan:         #7ee6ff;
-  --font-mono:    'JetBrains Mono', monospace;
-  --font-body:    'Inter', sans-serif;
-  --max-w:        800px;
-  --radius:       4px;
+  --bg:                  #faf8ff;
+  --surface:             #ffffff;
+  --surface-card:        #ffffff;
+  --surface-hover:       #f2f3ff;
+  --surface-container:   #eaedff;
+  --text:                #131b2e;
+  --muted:               #3e484d;
+  --outline:             #6e797e;
+  --outline-variant:     #bdc8ce;
+  --accent:              #00647c;
+  --accent-container:    #007f9d;
+  --secondary-container: #d0e1fb;
+  --inverse-surface:     #283044;
+  --font-mono:           'JetBrains Mono', monospace;
+  --font-body:           'Geist', sans-serif;
+  --max-w:               1280px;
+  --margin-desktop:      64px;
+  --margin-mobile:       16px;
+  --gutter:              24px;
+  --radius:              4px;
+  --radius-lg:           8px;
 }
 
 /* ── Reset ───────────────────────────────────────────── */
