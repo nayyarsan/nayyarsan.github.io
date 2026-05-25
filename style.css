@@ -43,9 +43,10 @@ a:hover { text-decoration: underline; }
   position: fixed;
   top: 0; left: 0; right: 0;
   height: 56px;
-  background: rgba(13,13,13,0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(250,248,255,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--outline-variant);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,7 +56,7 @@ a:hover { text-decoration: underline; }
 .nav__inner {
   width: 100%;
   max-width: var(--max-w);
-  padding: 0 1.5rem;
+  padding: 0 var(--margin-desktop);
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -70,40 +71,27 @@ a:hover { text-decoration: underline; }
 }
 
 .nav__link {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
   color: var(--muted);
   transition: color 0.15s;
+  text-decoration: none;
 }
 
-.nav__link:hover { color: var(--text); text-decoration: none; }
+.nav__link:hover { color: var(--accent); text-decoration: none; }
 
 .nav__link.active {
   color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 4px;
   position: relative;
-}
-
-.nav__link.active::before {
-  content: '';
-  display: inline-block;
-  width: 0.6em;
-  height: 1em;
-  background: var(--accent);
-  margin-right: 4px;
-  vertical-align: middle;
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
 }
 
 /* ── Layout ──────────────────────────────────────────── */
 .container {
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 3rem 1.5rem;
+  padding: 3rem var(--margin-desktop);
 }
 
 /* ── Hero ────────────────────────────────────────────── */
