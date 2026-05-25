@@ -107,16 +107,65 @@ a:hover { text-decoration: underline; }
 }
 
 .hero__name {
-  font-family: var(--font-mono);
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-family: var(--font-body);
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   color: var(--text);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .hero__bio {
   color: var(--muted);
-  font-size: 1rem;
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero__cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: #ffffff;
+  padding: 8px 24px;
+  border-radius: var(--radius);
+  transition: background 0.15s;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: var(--accent-container);
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.btn-ghost {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--text);
+  padding: 8px 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--outline-variant);
+  transition: border-color 0.15s, color 0.15s;
+  text-decoration: none;
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  text-decoration: none;
 }
 
 /* ── Section heading ─────────────────────────────────── */
